@@ -6,7 +6,7 @@
       <a class="brand" href="/">Saarthak Sharma</a>
       <ul class="nav-links" role="list">
         <li><a href="/" data-nav="home">Home</a></li>
-        <li><a href="/about.html" data-nav="about">About</a></li>
+      
         <li><a href="/projects.html" data-nav="projects">Projects</a></li>
         <li><a href="/experience.html" data-nav="experience">Experience</a></li>
         <li><a href="/contact.html" data-nav="contact">Contact</a></li>
