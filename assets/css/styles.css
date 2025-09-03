@@ -1,0 +1,654 @@
+/* ==========================================================================
+   Saarthak — Site Styles (GLOBAL)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Design Tokens / CSS Variables
+   -------------------------------------------------------------------------- */
+   :root {
+    --nav-bg: #000;
+    --nav-text: #fff;
+    --page-bg: #f3ead7;
+    --text: #1a1a1a;
+    --muted: #4f4f4f;
+    --hover-color: purple;
+    --border: #d9cdb8;
+  
+    --container: 1150px;
+    --avatar-size: 460px;
+    --icon-size: 56px;
+    --hero-para: 1.4rem;
+    --nav-font-size: 1.2rem;
+    --nav-padding-y: 1rem;
+  }
+  
+  /* --------------------------------------------------------------------------
+     Base Layout / Page Shell
+     -------------------------------------------------------------------------- */
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--page-bg);
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    color: var(--text);
+    line-height: 1.6;
+    opacity: 0;
+    transition: opacity 300ms ease-in-out;
+  }
+  body.is-visible { opacity: 1; }
+  body.is-exiting { opacity: 0; pointer-events: none; }
+  main { flex: 1; }
+  .container { max-width: var(--container); margin: 0 auto; padding: 0 1rem; }
+  
+  /* --------------------------------------------------------------------------
+     Typography (Global)
+     -------------------------------------------------------------------------- */
+  h1 { font-size: clamp(2rem, 4.5vw, 3rem); margin: .25rem 0 1rem; }
+  h2 { font-size: clamp(1.6rem, 2.6vw, 2rem); }
+
+  
+  /* --------------------------------------------------------------------------
+     Header / Navigation (Global)
+     -------------------------------------------------------------------------- */
+  .site-header {
+    background: var(--nav-bg);
+    border-bottom: 1px solid #111;
+    padding: var(--nav-padding-y) 0;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    width: 100%;
+  }
+  
+  .nav {
+    display: flex;
+    align-items: center;
+    padding: 0 2rem;
+  }
+  
+  .brand {
+    color: beige;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.7rem;
+    margin-left: 5rem;
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    margin-left: auto;
+    padding: 0;
+  }
+  .nav-links a {
+    color: beige;
+    text-decoration: none;
+    font-size: 1.4rem;
+    padding: .6rem 1rem;
+    border-radius: .6rem;
+    transition: background .2s ease, color .2s ease;
+  }
+  .nav-links a:hover,
+  .nav-links a:focus {
+    background: rgba(128,0,128,0.15);
+    color: var(--hover-color);
+  }
+  
+  /* --------------------------------------------------------------------------
+     Home / Hero (Global block used on index)
+     -------------------------------------------------------------------------- */
+  .hero {
+    display: grid;
+    grid-template-columns: var(--avatar-size) 1fr;
+    gap: 2.5rem;
+    padding: 4rem 0 3rem;
+    align-items: center;
+  }
+  .avatar {
+    width: var(--avatar-size);
+    height: var(--avatar-size);
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid #fff;
+    box-shadow: 0 6px 18px rgba(0,0,0,.12);
+  }
+  .intro p { font-size: var(--hero-para); }
+  
+  /* --------------------------------------------------------------------------
+     Icon Buttons (Global)
+     -------------------------------------------------------------------------- */
+  .icon-row {
+    display: flex;
+    justify-content: left;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .icon-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--icon-size);
+    height: var(--icon-size);
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid var(--border);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: transform .08s ease, box-shadow .2s ease;
+  }
+  .icon-btn svg {
+    width: calc(var(--icon-size) * 0.5);
+    height: calc(var(--icon-size) * 0.5);
+    fill: #111;
+  }
+  .icon-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 14px rgba(0,0,0,.12); }
+  
+  /* --------------------------------------------------------------------------
+     Footer (Global)
+     -------------------------------------------------------------------------- */
+  .site-footer {
+    background: #000;
+    color: #fff;
+    text-align: center;
+    padding: 1rem 0;
+    margin-top: auto;
+  }
+  
+  /* ==========================================================================
+     PAGE: EXPERIENCE
+     ========================================================================== */
+  
+  /* --------------------------------------------------------------------------
+     Section: Technical Skills (heading + card grid)
+     -------------------------------------------------------------------------- */
+  .page--experience .xp-skills > h2 {
+    font-size: clamp(2.2rem, 4.6vw, 3rem);
+    line-height: 1.1;
+    font-weight: 800;
+    text-align: center;
+    margin: 0 0 1.5rem;
+  }
+  
+  .page--experience .xp-skill-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+    margin-top: 1rem;
+  }
+  
+  /* --------------------------------------------------------------------------
+     Component: Skill Card (glass effect + animated border)
+     -------------------------------------------------------------------------- */
+  .page--experience .xp-card {
+    position: relative;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    box-shadow: 0 10px 24px rgba(0,0,0,.10);
+    padding: 1.05rem 1.1rem;
+    transition: transform .22s ease, box-shadow .22s ease, background .22s ease;
+    overflow: hidden;
+  }
+  .page--experience .xp-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: inherit;
+    background: linear-gradient(135deg, #a78bfa, #22d3ee, #60a5fa);
+    background-size: 200% 200%;
+    animation: xp-border 6s linear infinite;
+    -webkit-mask: linear-gradient(#000 0 0) content-box,
+                   linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    opacity: .65;
+  }
+  @keyframes xp-border {
+    0% { background-position: 0% 50% }
+    50% { background-position: 100% 50% }
+    100% { background-position: 0% 50% }
+  }
+  .page--experience .xp-card::after {
+    content: "";
+    position: absolute;
+    top: -20%;
+    left: -20%;
+    width: 60%;
+    height: 160%;
+    background: radial-gradient(closest-side, rgba(255,255,255,.35), transparent 70%);
+    transform: rotate(12deg);
+    opacity: 0;
+    transition: opacity .25s ease;
+    pointer-events: none;
+  }
+  .page--experience .xp-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 36px rgba(0,0,0,.16);
+    background: rgba(255, 255, 255, 0.9);
+  }
+  .page--experience .xp-card:hover::after { opacity: 1; }
+  
+  .page--experience .xp-card > h3 {
+    margin: .25rem 0 0.75rem;
+    font-size: 1.35rem;
+    text-align: center;
+    letter-spacing: .02em;
+    font-weight: 800;
+    color: #0f172a;
+  }
+  
+  /* --------------------------------------------------------------------------
+     Component: Skill List inside a Card
+     -------------------------------------------------------------------------- */
+  .page--experience .xp-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: .5rem;
+    margin: 0; padding: 0;
+    list-style: none;
+  }
+  .page--experience .xp-list li {
+    display: grid;
+    grid-template-columns: 24px 1fr;
+    align-items: center;
+    gap: .65rem;
+    padding: .58rem .7rem;
+    border-radius: 12px;
+    background: rgba(0,0,0,.025);
+    border: 1px solid rgba(0,0,0,.06);
+    transition: background .18s ease, border-color .18s ease;
+  }
+  .page--experience .xp-list li:hover {
+    background: rgba(0,0,0,.035);
+    border-color: rgba(0,0,0,.10);
+  }
+  .page--experience .tick {
+    width: 24px; height: 24px;
+    display: grid; place-items: center;
+    font-weight: 900;
+    color: #3b0764;
+    background: radial-gradient(ellipse at 30% 30%, #f0abfc 0%, #a78bfa 60%, #60a5fa 100%);
+    border-radius: 50%;
+    box-shadow: 0 2px 6px rgba(0,0,0,.15);
+    line-height: 1;
+  }
+  .page--experience .xp-list div { display: flex; flex-direction: column; }
+  .page--experience .xp-list strong { font-weight: 700; color: #111827; }
+  .page--experience .xp-list small { font-size: .78rem; color: #6b7280; margin-top: .05rem; }
+  
+  .page--experience .experience-item:first-of-type { margin-top: 1.25rem; }
+  
+  @media (max-width: 720px) {
+    .page--experience .xp-card { padding: .9rem .95rem; }
+    .page--experience .xp-card > h3 { margin-bottom: .6rem; }
+  }
+  
+  /* --------------------------------------------------------------------------
+     Experience List (logo alignment + spacing)
+     -------------------------------------------------------------------------- */
+  .page--experience .experience-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+  .page--experience .company-logo {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    flex-shrink: 0; /* Prevent logo from shrinking */
+  }
+  .page--experience .experience-item h2,
+  .page--experience .experience-item p,
+  .page--experience .experience-item ul {
+    margin-left: 0; /* Reset margin */
+  }
+  .page--experience .experience-item div {
+    flex: 1; /* Text block fills remaining space */
+  }
+  
+  /* --------------------------------------------------------------------------
+     Experience Section Headings (spacing)
+     -------------------------------------------------------------------------- */
+  .page--experience .xp-skills > h2,
+  .page--experience .page-title {
+    text-align: center;
+    margin-top: 3rem;  /* pushes headings lower */
+    margin-bottom: 2rem;
+  }
+  
+  /* --------------------------------------------------------------------------
+     Structured Experience Cards (timeline-style)
+     -------------------------------------------------------------------------- */
+  .xp-timeline {
+    display: grid;
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+  }
+  .xp-divider {
+    border: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(0,0,0,.15), transparent);
+    margin: .25rem 0 1rem;
+  }
+  .xp-role {
+    display: grid;
+    grid-template-columns: 110px 1fr;              /* logo | content on mobile */
+    grid-template-areas:
+      "logo head"
+      "logo bullets"
+      "logo skills";
+    gap: 1rem 1.25rem;
+    padding: 1.25rem;
+    border: 1px solid rgba(0,0,0,.08);
+    border-radius: 16px;
+    background: rgba(255,255,255,0.82);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    box-shadow: 0 10px 22px rgba(0,0,0,.06);
+  }
+  .xp-logo {
+    grid-area: logo;
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid rgba(0,0,0,.06);
+  }
+  .xp-head {
+    grid-area: head;
+    align-self: center;
+  }
+  .xp-head h3 {
+    margin: 0 0 .25rem;
+    line-height: 1.25;
+    font-size: clamp(1.05rem, 1.85vw, 1.45rem);
+    font-weight: 800;
+  }
+  .xp-head .company { color: #0f172a; }
+  .xp-head .dash { opacity: .5; margin: 0 .3rem; }
+  .xp-head .position { color: #1f2937; font-weight: 700; }
+  .xp-head .meta {
+    margin: 0;
+    color: #6b7280;
+    font-size: .95rem;
+    font-style: italic;
+  }
+  .xp-bullets {
+    grid-area: bullets;
+    margin: .5rem 0 0;
+    padding-left: 1.15rem;
+  }
+  .xp-bullets li { margin: .4rem 0; }
+  .xp-skills-col {
+    grid-area: skills;
+    align-self: start;
+    margin-top: .25rem;
+  }
+  .xp-skills-col h4 {
+    margin: 0 0 .5rem;
+    font-size: .95rem;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: #374151;
+  }
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .4rem;
+  }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    padding: .28rem .55rem;
+    border-radius: 999px;
+    background: #fff;
+    border: 1px solid rgba(0,0,0,.08);
+    box-shadow: 0 1px 3px rgba(0,0,0,.06);
+    font-size: .85rem;
+    color: #111827;
+  }
+  /* Larger screens: place skills to the right of bullets */
+  @media (min-width: 900px) {
+    .xp-role {
+      grid-template-columns: 110px 1fr 260px;      /* logo | bullets | skills */
+      grid-template-areas:
+        "logo head    head"
+        "logo bullets skills";
+    }
+    .xp-skills-col { margin-left: .25rem; }
+  }
+  /* Center the big headings and give them breathing room */
+  .page--experience .page-title,
+  .page--experience .xp-skills > h2 {
+    text-align: center;
+    margin-top: 3.2rem;
+    margin-bottom: 2rem;
+  }
+  
+  /* ==========================================================================
+     PAGE: CONTACT
+     ========================================================================== */
+  
+  /* --------------------------------------------------------------------------
+     Contact — Title + Lead + Icons row
+     -------------------------------------------------------------------------- */
+  .page--contact .contact-title{
+    text-align:center;
+    margin-top:3rem;
+    margin-bottom:.5rem;
+    font-size:clamp(2.2rem,4.6vw,3rem);
+    font-weight:800;
+  }
+  .page--contact .contact-lede{
+    text-align:center;
+    color:var(--muted);
+    margin:0 0 1.25rem;
+  }
+  .page--contact .contact-icons{
+    justify-content:center;
+    margin-bottom:2rem;
+  }
+  
+  /* --------------------------------------------------------------------------
+     Contact — Card container (glass + gradient border)
+     -------------------------------------------------------------------------- */
+  .page--contact .contact-card{
+    background: rgba(255,255,255,.9);
+    border-radius:16px;
+    box-shadow:0 10px 24px rgba(0,0,0,.10);
+    padding:1.25rem;
+    max-width:900px;
+    margin:0 auto 3rem;
+    position:relative;
+  }
+  .page--contact .contact-card::before{
+    content:"";
+    position:absolute; inset:0; padding:1px; border-radius:inherit;
+    background: linear-gradient(135deg,#a78bfa,#22d3ee,#60a5fa);
+    background-size:200% 200%; animation: xp-border 6s linear infinite;
+    -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor; mask-composite:exclude;
+    pointer-events:none; opacity:.55;
+  }
+  
+  /* --------------------------------------------------------------------------
+     Contact — Form grid + fields + button
+     -------------------------------------------------------------------------- */
+  .page--contact .contact-form{ width:100%; }
+  .page--contact .contact-grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:1rem 1.2rem;
+  }
+  .page--contact .field{ display:flex; flex-direction:column; }
+  .page--contact .field--full{ grid-column:1 / -1; }
+  
+  .page--contact label{
+    font-size:.95rem;
+    font-weight:600;
+    margin-bottom:.35rem;
+  }
+  .page--contact input,
+  .page--contact textarea{
+    background:#fff;
+    border:1px solid rgba(0,0,0,.12);
+    border-radius:10px;
+    padding:.8rem .9rem;
+    font-size:1rem;
+    color:var(--text);
+    outline:none;
+    transition:border-color .18s ease, box-shadow .18s ease;
+  }
+  .page--contact input:focus,
+  .page--contact textarea:focus{
+    border-color:#a78bfa;
+    box-shadow:0 0 0 3px rgba(167,139,250,.25);
+  }
+  
+  .page--contact .btn-primary{
+    display:inline-block;
+    margin-top:1rem;
+    width:100%;
+    border:none;
+    border-radius:12px;
+    padding:.95rem 1.1rem;
+    font-size:1.05rem;
+    font-weight:700;
+    color:#fff;
+    background: linear-gradient(135deg,#8e0ee9,#4e46e5);
+    cursor:pointer;
+    transition: transform .08s ease, box-shadow .2s ease, opacity .12s ease;
+  }
+  .page--contact .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 22px rgba(0,0,0,.16);
+    background: var(--hover-color); /* Use the same purple as nav hover */
+  }
+  
+  .page--contact .btn-primary {
+    transition: transform .08s ease, box-shadow .2s ease, opacity .12s ease, background .25s ease;
+  }
+  
+  .page--contact .btn-primary:active{ transform: translateY(0); opacity:.92; }
+  
+  @media (max-width: 760px){
+    .page--contact .contact-grid{ grid-template-columns: 1fr; }
+  }
+  /* ---- Contact toast ---- */
+.toast{
+    position: fixed;
+    left: 50%;
+    bottom: 24px;
+    transform: translateX(-50%) translateY(16px);
+    background: #0f172a;
+    color: #fff;
+    padding: .85rem 1rem;
+    border-radius: 12px;
+    box-shadow: 0 14px 28px rgba(0,0,0,.2);
+    display: flex; align-items: center; gap: .75rem;
+    opacity: 0; pointer-events: none;
+    transition: transform .2s ease, opacity .2s ease;
+    z-index: 1000;
+  }
+  .toast.show{
+    opacity: 1; pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+  }
+  .toast-close{
+    background: transparent; border: 0; color: #fff;
+    font-size: 1.1rem; line-height: 1; cursor: pointer;
+    opacity: .8;
+  }
+  .toast-close:hover{ opacity: 1; }
+  
+  /* ==========================================================================
+   PAGE: PROJECTS
+   ========================================================================== */
+.page--projects .page-title {
+    text-align: center;
+    margin-top: 3rem;
+    margin-bottom: 2.5rem;
+    font-weight: 800;
+    font-size: clamp(2.2rem, 4.6vw, 3rem);
+  }
+  
+  .project-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+  }
+  
+  .project-card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 16px;
+    box-shadow: 0 10px 24px rgba(0,0,0,.12);
+    overflow: hidden;
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  
+  .project-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 36px rgba(0,0,0,.18);
+  }
+  
+  .project-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 1px solid rgba(0,0,0,.08);
+  }
+  
+  .project-content {
+    padding: 1.2rem 1.4rem;
+  }
+  
+  .project-content h2 {
+    margin: 0 0 .6rem;
+    font-size: 1.4rem;
+    font-weight: 800;
+  }
+  
+  .project-desc {
+    margin: 0 0 1rem;
+    color: var(--muted);
+    font-size: .95rem;
+  }
+  
+  .project-tools,
+  .project-date {
+    font-size: .9rem;
+    margin: .4rem 0;
+  }
+  
+  .project-links {
+    margin-top: 1rem;
+    display: flex;
+    gap: .8rem;
+  }
+  
+  .btn-link {
+    display: inline-block;
+    padding: .6rem 1.1rem;
+    border-radius: 8px;
+    background: linear-gradient(135deg,#8e0ee9,#4e46e5);
+    color: #fff;
+    font-size: .9rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background .2s ease, transform .08s ease;
+  }
+  
+  .btn-link:hover {
+    background: rgba(128,0,128,0.85);
+    transform: translateY(-2px);
+  }
+  
+  
